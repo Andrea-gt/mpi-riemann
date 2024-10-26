@@ -37,23 +37,23 @@ gcc -o riemann_omp riemann_omp.c -fopenmp -lm
 
 ### Executing the Programs
 
-You can execute the programs using the provided shell script, `exec_time.sh`, which simplifies the process of running each implementation and capturing execution times.
+You can execute the programs using the provided shell script, `run_programs.sh`, which simplifies the process of running each implementation and capturing execution times.
 
 ### Shell Script Instructions
 
 1. **Make the script executable**:
    ```bash
-   chmod +x exec_time.sh
+   chmod +x run_programs.sh
    ```
 
 2. **Run the script with the required parameters**:
    ```bash
-   ./exec_time.sh <param_a> <param_b> <num_threads>
+   ./run_programs.sh <param_a> <param_b> <num_threads>
    ```
 
    For example:
    ```bash
-   ./exec_time.sh 0 1 4
+   ./run_programs.sh 0 10 4
    ```
 
 ## Parameters
@@ -64,13 +64,26 @@ You can execute the programs using the provided shell script, `exec_time.sh`, wh
 
 ## Output
 
-Each implementation will output the approximation of the integral along with the execution time for that computation.
+Each implementation will output the approximation of the integral along with the execution time for that computation. The execution times for each program will also be logged in execution_times.csv.
 
 Example output:
 ```
-With n = 1000000, the approximation of the integral from a = 0.00 to b = 1.00 is 0.333333
-Execution time: 0.123456 seconds
+F(x) = (x)^2, N = 100,000,000; 
+Running riemann.c...
+Running riemann_omp.c...
+Running riemann_mpi.c...
 ```
+
+The execution_times.csv file will contain:
+
+```
+Program,Execution Time (seconds)
+riemann,0.123456
+riemann_omp,0.098765
+riemann_mpi,0.076543
+```
+
+If you want to see the detailed results of the integrals, you may run each program separately (i.e., riemann, riemann_omp, and riemann_mpi) as they provide comprehensive output specific to the integral calculations.
 
 ## Performance Comparison
 
