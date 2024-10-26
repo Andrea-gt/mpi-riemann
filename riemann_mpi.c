@@ -32,7 +32,7 @@
 #include <math.h>
 
 // Global variable to hold the number of trapezoids
-int N = 1000000; 
+int N = 100000000; 
 
 // Function to compute x^2
 double f(double x) {
@@ -67,7 +67,6 @@ int main(int argc, char* argv[]) {
     int PROCESS_RANK, CLUSTER_SIZE;
     double PARAM_A, PARAM_B, LOCAL_A, LOCAL_B;
     double LOCAL_SUM, GLOBAL_SUM;
-
     
     // Initialize the MPI environment
     MPI_Init(&argc, &argv);
@@ -122,6 +121,9 @@ int main(int argc, char* argv[]) {
     LOCAL_A = PARAM_A + PROCESS_RANK * (N / CLUSTER_SIZE) * H + (PROCESS_RANK < N % CLUSTER_SIZE ? PROCESS_RANK * H : (N % CLUSTER_SIZE) * H);
     LOCAL_B = LOCAL_A + LOCAL_N * H;
 
+    // Start timing
+    double START_TIME = MPI_Wtime();
+
     // Calculate the local trapezoidal sum
     LOCAL_SUM = trapezoidal_sum(LOCAL_A, LOCAL_B, LOCAL_N, H);
 
@@ -137,9 +139,14 @@ int main(int argc, char* argv[]) {
             GLOBAL_SUM += received_sum; // Accumulate the received sums
         }
 
+        // End timing
+        double END_TIME = MPI_Wtime();
+
         // Display the final result
         printf("With n = %d, the approximation of the integral from a = %.2f to b = %.2f is %.6f\n", 
                 N, PARAM_A, PARAM_B, GLOBAL_SUM);
+
+        printf("Execution time: %.6f seconds\n", END_TIME - START_TIME);
     }
 
     // Finalize the MPI environment

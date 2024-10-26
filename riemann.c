@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 /**
  * @file riemann.c
@@ -11,7 +12,7 @@
  */
 
 // Global variable to hold the number of trapezoids
-int N = 1000000; 
+int N = 100000000; 
 
 // Function to compute x^2
 double f(double x) {
@@ -65,12 +66,22 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Start timing
+    clock_t START_TIME = clock();
+
     // Calculate the trapezoidal sum for the given limits
     double sum_result = trapezoidal_sum(PARAM_A, PARAM_B);
+
+
+    // End timing
+    clock_t END_TIME = clock();
+    double elapsed_time = (double)(END_TIME - START_TIME) / CLOCKS_PER_SEC;
 
     // Print the result
     printf("With n = %d, the approximation of the integral from point a = %.2f to point b = %.2f is %.6f\n", 
             N, PARAM_A, PARAM_B, sum_result);
+
+    printf("Execution time: %.6f seconds\n", elapsed_time);
 
     // Return success
     return 0; 

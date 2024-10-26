@@ -12,7 +12,7 @@
  */
 
 // Global variable to hold the number of trapezoids
-int N = 1000000; 
+int N = 100000000; 
 
 // Global variable to hold the trapezoidal sum result
 double sum_result = 0.0; 
@@ -104,6 +104,9 @@ int main(int argc, char* argv[]) {
     // Set the number of threads for OpenMP
     omp_set_num_threads(OMP_NUM_THREADS);
 
+    // Start timing
+    double START_TIME = omp_get_wtime();
+
     int LOCAL_N = N / OMP_NUM_THREADS; // Number of trapezoids for each thread
 
     // Start the parallel region
@@ -113,9 +116,14 @@ int main(int argc, char* argv[]) {
         trapezoidal_sum(PARAM_A, PARAM_B, LOCAL_N);
     }
 
+    // Start timing
+    double END_TIME = omp_get_wtime();
+
     // Print the result of the integral approximation
     printf("With n = %d, the approximation of the integral from point a = %.2f to point b = %.2f is %.6f\n", 
             N, PARAM_A, PARAM_B, sum_result);
+
+    printf("Execution time: %.6f seconds\n", END_TIME - START_TIME);
 
     // Return success
     return 0; 
