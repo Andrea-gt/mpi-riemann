@@ -51,12 +51,12 @@ double h_(double x) {
 
 // Function to compute the trapezoidal sum
 double trapezoidal_sum(double param_a, double param_b, int local_n, double H) {
-    double sum = 0.5 * (f(param_a) + f(param_b)); // Initial sum with endpoints
+    double sum = 0.5 * (h_(param_a) + h_(param_b)); // Initial sum with endpoints
 
     // Sum the areas of the trapezoids
     for (int i = 1; i < local_n; i++) {
         double x = param_a + i * H; // Calculate x position
-        sum += f(x); // Add f(x) to the sum
+        sum += h_(x); // Add f(x) to the sum
     }
 
     return sum * H;; // Return the total area

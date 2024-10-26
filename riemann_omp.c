@@ -12,7 +12,7 @@
  */
 
 // Global variable to hold the number of trapezoids
-int N = 100000000; 
+int N = 100000000;
 
 // Global variable to hold the trapezoidal sum result
 double sum_result = 0.0; 
@@ -50,12 +50,12 @@ void trapezoidal_sum(double param_a, double param_b, int local_n) {
     }
 
     // Start the local sum with the endpoints
-    local_sum += 0.5 * (f(local_a) + f(local_b)); // Initial sum with endpoints
+    local_sum += 0.5 * (h_(local_a) + h_(local_b)); // Initial sum with endpoints
 
     // Sum the areas of the trapezoids for this segment
     for (int i = 1; i < local_n; i++) {
         double x = local_a + i * h; // Calculate x position
-        local_sum += f(x); // Add h(x) to the sum
+        local_sum += h_(x); // Add h(x) to the sum
     }
 
     local_sum *= h; // Multiply by the width to get the total area for this segment

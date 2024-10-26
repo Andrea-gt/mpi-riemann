@@ -12,7 +12,7 @@
  */
 
 // Global variable to hold the number of trapezoids
-int N = 100000000; 
+int N = 100000000;
 
 // Function to compute x^2
 double f(double x) {
@@ -32,12 +32,12 @@ double h_(double x) {
 // Function to compute the trapezoidal sum
 double trapezoidal_sum(double param_a, double param_b) {
     double h = (param_b - param_a) / N; // Width of each trapezoid
-    double sum = 0.5 * (f(param_a) + f(param_b)); // Initial sum with endpoints
+    double sum = 0.5 * (h_(param_a) + h_(param_b)); // Initial sum with endpoints
 
     // Sum the areas of the trapezoids
     for (int i = 1; i < N; i++) {
         double x = param_a + i * h; // Calculate x position
-        sum += f(x); // Add f(x) to the sum
+        sum += h_(x); // Add f(x) to the sum
     }
 
     sum *= h; // Multiply by the width to get the total area
