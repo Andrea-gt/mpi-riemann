@@ -1,0 +1,82 @@
+# Compilation and Execution Instructions
+
+## Overview
+
+This document provides instructions for compiling and running the individual C programs as well as the shell script designed to execute them.
+
+## Compiling the Programs
+
+Before running the programs, you need to compile them. Use the following commands in your terminal:
+
+1. **Compile the Riemann Program**:
+   ```bash
+   gcc -o riemann riemann.c -lm
+   ```
+
+2. **Compile the OpenMP Riemann Program**:
+   ```bash
+   gcc -o riemann_omp riemann_omp.c -fopenmp -lm
+   ```
+
+3. **Compile the MPI Riemann Program**:
+   ```bash
+   mpicc -o riemann_mpi riemann_mpi.c -lm
+   ```
+
+## Running the Programs
+
+Once compiled, you can run each program individually as follows:
+
+1. **Run the Non-MPI Riemann Program**:
+   ```bash
+   ./riemann <param_a> <param_b>
+   ```
+   For example:
+   ```bash
+   ./riemann 2 10
+   ```
+
+2. **Run the OpenMP Riemann Program**:
+   ```bash
+   ./riemann_omp <param_a> <param_b> <num_threads>
+   ```
+   For example:
+   ```bash
+   ./riemann_omp 2 10 4
+   ```
+
+3. **Run the MPI Riemann Program**:
+   ```bash
+   mpirun -np <num_processes> ./riemann_mpi <param_a> <param_b>
+   ```
+   For example:
+   ```bash
+   mpirun -np 4 ./riemann_mpi 2 10
+   ```
+
+## Using the Shell Script
+
+To compile and run all programs simultaneously, you can use the provided shell script:
+
+1. **Make the script executable**:
+   ```bash
+   chmod +x exec_time.sh
+   ```
+
+2. **Run the script with the required parameters**:
+   ```bash
+   ./exec_time.sh <param_a> <param_b> <num_threads>
+   ```
+   For example:
+   ```bash
+   ./exec_time.sh 2 10 4
+   ```
+
+## Output
+
+- Each program will print the approximation of the integral along with the execution time.
+- The shell script will log the execution times in a file named `execution_times.csv`.
+
+## Disclaimer
+
+For detailed results of the integrals, run each program separately as they provide comprehensive output specific to the integral calculations.
